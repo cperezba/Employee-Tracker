@@ -42,7 +42,7 @@ Instructions for program usage:
 1. Open integrated terminal within index.js.
 1. Install dependencies using the following command prompt: ```npm i```
 1. Run program by running the command prompt: ```node index.js``` 
-1. Carry out commands as desired - create, view, and edit. 
+1. Carry out commands as desired - create, view, and edit!
 
 
 
