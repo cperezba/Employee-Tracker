@@ -8,8 +8,6 @@
 
 ### [Usage](#usage-header)
 
-### [Tests](#tests-header)
-
 ### [Licence](#licence-header)
 
 ### [Credits](#credits-header)
@@ -32,19 +30,19 @@ The employee tracker allows one to view, add, edit, and show data regarding comp
 
 ## <a id="installation-header"></a> Installation
 
-
+Installation is quick and easy! Merely clone this repository or download the ZIP files - all under the top green "Code" button on the right hand side!
 
 
 <br/>
 
 ## <a id="usage-header"></a> Usage
+Instructions for program usage:
 
-
-
-
-<br/>
-
-## <a id="tests-header"></a> Tests
+1. Open the README.md-Generator folder on VS Code or Code Editor. 
+1. Open integrated terminal within index.js.
+1. Install dependencies using the following command prompt: ```npm i```
+1. Run program by running the command prompt: ```node index.js``` 
+1. After finishing the question prompts, a fully fleshed out README file will appear on the text file folders. (In VS Code, to the left.) 
 
 
 
