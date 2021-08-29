@@ -5,10 +5,11 @@ const cTable = require('console.table');
 
 
 
+
 //Constructors
-const Department = require('./lib/department');
-const Role = require('./lib/role');
-const Employee = require('./lib/employee')
+const {addDepartmentSQL, addRoleSQL, viewAllDepartmentsSQL} = require('./lib/helpers');
+// const Role = require('./lib/role');
+// const Employee = require('./lib/employee')
 
 
 //MySQL Connection
@@ -63,17 +64,17 @@ const mainMenu = () => {
           updateEmployeeRole();
           break;
         case 'Quit':
-          console.log(team)
-          fs.writeFile(`team.html`, generateHTML(team), (err) =>
-            err ? console.log(err) : console.log('Success!'))
-          break;
+          return;
       }
     })
 }
 
 //View All Departments
-const viewAllDepartments = () => {
-  console.table(departmentLog);
+const viewAllDepartments = async (db) => {
+  const response = await viewAllDepartmentsSQL(db);
+  console.log(viewAllDepartmentsSQL(db));
+  console.table = response;
+  mainMenu();
 };
 
 //View All Roles
@@ -96,8 +97,11 @@ const addDepartment = () => {
     message: `What is the name of the department?`,
   }])
     .then(result => {
-      let department = new Department(1, result.departmentName);
-      departmentLog.push(department);
+      addDepartmentSQL(db, result.departmentName);
+     
+      
+      // let department = new Department(1, result.departmentName);
+      // db.push(department);
       mainMenu();
     })
 };
@@ -108,7 +112,7 @@ const addDepartment = () => {
 const addRole = () => {
   inquirer.prompt([{
     type: 'input',
-    name: 'name',
+    name: 'title',
     message: `What is the name of the role?`,
   },
   {
@@ -122,8 +126,7 @@ const addRole = () => {
     message: `What department does the role belong to?`,
   }])
     .then(result => {
-      let role = new Role(1, result.department, result.name, result.salary);
-      roleLog.push(role);
+      addRoleSQL(db, result.title, result.name, result.department);
       mainMenu();
     })
 };
@@ -171,8 +174,8 @@ const updateEmployeeRole = () => {
 
 
 
-
-
-
-
 mainMenu();
+
+
+
+module.exports = db;
