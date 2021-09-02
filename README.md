@@ -44,6 +44,9 @@ Instructions for program usage:
 1. Run program by running the command prompt: ```node index.js``` 
 1. Carry out commands as desired - create, view, and edit!
 
+<br/>
+
+For an visual step-by-step walkthrough of both installation and usage, click [here](https://drive.google.com/file/d/1wwpzxj0Diz3KJYUpb1ix6a-vkYTfsI-4/view)!
 
 
 <br/>
