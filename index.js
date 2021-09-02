@@ -7,7 +7,7 @@ const cTable = require('console.table');
 
 
 //Constructors
-const {addDepartmentSQL, addRoleSQL, viewAllDepartmentsSQL} = require('./lib/helpers');
+const { addDepartmentSQL } = require('./lib/helpers');
 // const Role = require('./lib/role');
 // const Employee = require('./lib/employee')
 
@@ -43,7 +43,7 @@ const mainMenu = () => {
     .then(result => {
       switch (result.mainMenu) {
         case 'View all departments':
-          viewAllDepartments();
+          viewAllDepartments(db).then(data => console.log(data));
           break;
         case 'View all roles':
           viewAllRoles();
@@ -70,23 +70,49 @@ const mainMenu = () => {
 }
 
 //View All Departments
-const viewAllDepartments = async (db) => {
-  const response = await viewAllDepartmentsSQL(db);
-  console.log(viewAllDepartmentsSQL(db));
-  console.table = response;
-  mainMenu();
+const viewAllDepartments = async () => {
+  const sql = `SELECT * FROM department`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+
+    if (result) {
+      console.table(result);
+      mainMenu();
+    }
+  });
 };
 
 //View All Roles
 const viewAllRoles = () => {
-  console.table(roleLog);
+  const sql = `SELECT * FROM role`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+
+    if (result) {
+      console.table(result);
+      mainMenu();
+    }
+  });
 };
 
 //View All Employees
 const viewAllEmployees = () => {
-  console.table(employeeLog);
-};
+  const sql = `SELECT * FROM employees`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
 
+    if (result) {
+      console.table(result);
+      mainMenu();
+    }
+  });
+};
 
 
 //Add Department
@@ -98,8 +124,8 @@ const addDepartment = () => {
   }])
     .then(result => {
       addDepartmentSQL(db, result.departmentName);
-     
-      
+
+
       // let department = new Department(1, result.departmentName);
       // db.push(department);
       mainMenu();
@@ -121,12 +147,13 @@ const addRole = () => {
     message: `What is the salary of the role?`,
   },
   {
-    type: 'input',
-    name: 'department',
-    message: `What department does the role belong to?`,
+    type: 'list',
+    name: 'department_id',
+    message: `What department ID`,
+    choices: [1, 2, 3, 4]
   }])
     .then(result => {
-      addRoleSQL(db, result.title, result.name, result.department);
+      addRoleSQL(result);
       mainMenu();
     })
 };
@@ -164,18 +191,22 @@ const addEmployee = () => {
 
 
 //Update Role
-const updateEmployeeRole = () => {
-  /*How do I update role? */
+function addRoleSQL(newRole) {
+  let sql = `INSERT INTO role SET ?`;
+  // let params = [newRole];
 
+  db.query(sql, newRole, (err, result) => {
+      if (err) {
+          console.log(err);
+      } 
+      // else {
+      //   console.table(result);
+      // }
+  })
 };
 
 
 
 
 
-
 mainMenu();
-
-
-
-module.exports = db;
